@@ -1,13 +1,13 @@
 backend:
   name: github
-  repo: thomaswang/gatsby-personal-starter-blog
+  repo: andytron/gatsby-andytron-dot-com
 
 media_folder: content/assets
 public_folder: ../assets
 
 collections:
-  - name: blog
-    label: Blog
+  - name: mixes
+    label: Mixes
     folder: content/blog
     create: true
     fields:

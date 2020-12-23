@@ -1,12 +1,13 @@
 module.exports = {
   siteMetadata: {
-    // edit below
-    title: `Gatsby Starter Personal Blog`,
-    author: `Gatsby`,
-    description: `A starter personal blog with styled components, dark mode, and Netlify CMS.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
+    title: `Andrew Huang, Front End Developer`,
+    author: `Andrew Huang`,
+    description: `The online portfolio of Andrew Huang, a front end web developer based in Brooklyn, NY.`,
+    siteUrl: `https://andytron.com`,
     social: {
-      twitter: `gatsbyjs`,
+      github: `andytron`,
+      linkedin: `mrandrewhuang`,
+      soundcloud: `heavyaccents`,
     },
   },
   plugins: [
@@ -16,55 +17,14 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: "gatsby-plugin-local-search",
-      options: {
-        name: "blog",
-        engine: "flexsearch",
-        engineOptions: {
-          encode: "icase",
-          tokenize: "forward",
-          async: false,
-        },
-        query: `
-          {
-            allMdx {
-              nodes {
-                id
-                fields { slug }
-                excerpt
-                rawBody
-                frontmatter {
-                  title
-                  description
-                  date(formatString: "MMMM DD, YYYY")
-                }
-              }
-            }
-          }
-        `,
-        ref: "id",
-        index: ["title", "rawBody"],
-        store: ["id", "slug", "date", "title", "excerpt", "description"],
-        normalizer: ({ data }) =>
-          data.allMdx.nodes.map(node => ({
-            id: node.id,
-            slug: node.fields.slug,
-            rawBody: node.rawBody,
-            excerpt: node.excerpt,
-            title: node.frontmatter.title,
-            description: node.frontmatter.description,
-            date: node.frontmatter.date,
-          })),
-      },
-    },
+    `gatsby-plugin-sass`,
     `gatsby-plugin-feed-mdx`,
     `gatsby-plugin-root-import`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content/blog`,
-        name: `blog`,
+        name: `mixes`,
       },
     },
     {
@@ -82,7 +42,7 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 590,
+              maxWidth: 450,
             },
           },
           {
@@ -100,28 +60,58 @@ module.exports = {
           {
             resolve: `gatsby-remark-smartypants`,
           },
+          {
+            resolve: `gatsby-remark-embedder`,
+          },
         ],
-        plugins: [`gatsby-remark-images`],
+        plugins: [
+          `gatsby-remark-images`,
+        ],
+      },
+    },
+    {
+      resolve: "gatsby-transformer-remark",
+      options: {
+        plugins: [
+          "gatsby-remark-soundcloud"
+        ]
+      }
+    },
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /img/,
+        },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `inknut antiqua:400,500,600,700,800,900`,
+          `rubik:400,500,600,700,800`,
+        ],
+        display: `swap`,
       },
     },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        // edit below
-        // trackingId: `ADD YOUR TRACKING ID HERE`,
+        trackingId: `UA-62001142-1`,
+        head: true,
       },
     },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `andytron.com`,
+        short_name: `andytron`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        // edit below
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/favicon.png`,
       },
     },
     {
